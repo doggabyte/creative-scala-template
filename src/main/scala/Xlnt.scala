@@ -4,13 +4,16 @@ import doodle.syntax._
 import doodle.jvm.Java2DFrame._
 import doodle.backend.StandardInterpreter._
 
-// To use this example, open the SBT console and type:
-//
-// Example.image.draw
-object Xlnt {
-  val image = triangle(30,30) fillColor Color.red above (triangle(30,30) fillColor Color.green beside triangle(30,30) fillColor Color.blue)
+package doggabyte {
+  object Xlnt {
+    val zelda = triangle(30,30) fillColor Color.red above (triangle(30,30) fillColor Color.green beside triangle(30,30) fillColor Color.blue)
+    val arch = circle(100) fillColor Color.white above rectangle(10, 60) fillColor Color.white above rectangle(200, 70) fillColor Color.green
+    val house = triangle(100, 90) fillColor Color.brown above rectangle(100, 100) fillColor Color.red
 
-  def main(args: Array[String]): Unit = {
-    image.draw
+    def main(args: Array[String]): Unit = {
+      zelda.draw
+      arch.draw
+      house.draw
+    }
   }
 }
