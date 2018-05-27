@@ -1,26 +1,64 @@
 import doodle.core._
 import doodle.core.Image._
+import doodle.core.Point._
+import doodle.core.PathElement._
 import doodle.syntax._
 import doodle.jvm.Java2DFrame._
 import doodle.backend.StandardInterpreter._
 
+
 package doggabyte {
+
   object Xlnt {
 
     def main(args: Array[String]): Unit = {
-      chessBoard.draw
+      println(ascending(8))
+    }
+
+    def ascending(n : Int) : List[Int] = {
+      def irritating(i: Int, i1: Int): List[Int] = {
+        i match {
+          case 0 => Nil
+          case n => i1 :: irritating(i-1, i1+1)
+        }
+      }
+      irritating(n, 1)
+    }
+
+    def descending(n : Int) : List[Int] = {
+      n match {
+        case 0 => Nil
+        case n => n :: descending(n-1)
+      }
+    }
+
+    def eights(n : Int) : List[Int] = {
+      n match {
+        case 0 => Nil
+        case n => 8 :: eights(n-1)
+      }
+    }
+
+    def pathPen : Path = {
+      closedPath(List(
+        moveTo(polar(54, 4.degrees)),
+        lineTo(polar(54, 23.degrees)),
+        lineTo(polar(54, 56.degrees)),
+        lineTo(polar(54, 128.degrees)),
+        lineTo(polar(54, 360.degrees))
+      ))
     }
 
     def chessBoard : Image = {
-      val blackSquare = square(20) fillColor Color.black
-      val whiteSquare = square(20) fillColor Color.white
+      val blackSquare = square(30) fillColor Color.black
+      val whiteSquare = square(30) fillColor Color.white
       val twoSquare = (whiteSquare above blackSquare) beside (blackSquare above whiteSquare)
       val fourSquare = (twoSquare above twoSquare) beside (twoSquare above twoSquare)
       val eightSquare = (fourSquare above fourSquare) beside (fourSquare above fourSquare)
       eightSquare
     }
 
-    def cross(count: Int): Image = {
+    def cross(count : Int): Image = {
       val unit = Image.circle(20)
       count match {
         case 0 => unit
@@ -28,7 +66,7 @@ package doggabyte {
       }
     }
 
-    def evilTriangle(count: Int): Image = {
+    def evilTriangle(count : Int): Image = {
       val triangle = Image.triangle(8, 8) lineColor Color.black
       count match {
         case 0 => triangle above (triangle beside triangle)
@@ -38,33 +76,33 @@ package doggabyte {
       }
     }
 
-    def listSort(li:List[Int]):List[Int]={
-      if (li.size<2) return li
-      val pivot=li.head
-      val (left,right)=li.partition(_< pivot)
-      println(left,pivot,right.tail)
+    def listSort(li : List[Int]) : List[Int] = {
+      if (li.size < 2) return li
+      val pivot = li.head
+      val (left, right) = li.partition(_< pivot)
+      println(left, pivot, right.tail)
       listSort(left) ::: pivot :: listSort(right.tail)
     }
 
-    def vectorSort(seq:Seq[Int]):Seq[Int]={
-      if (seq.size<2) return seq
-      val pivotPos=seq.size/2
-      val pivot=seq.apply(pivotPos)
-      val (left,right)=seq.patch(pivotPos,Nil,1).partition(_< pivot)
-      println(left,pivot,right)
+    def vectorSort(seq : Seq[Int]) : Seq[Int] = {
+      if (seq.size < 2) return seq
+      val pivotPos = seq.size / 2
+      val pivot = seq.apply(pivotPos)
+      val (left, right) = seq.patch(pivotPos, Nil, 1).partition(_< pivot)
+      println(left, pivot, right)
       (vectorSort(left):+ pivot) ++ vectorSort(right)
     }
 
-    def vectorQuickSort(seq:Seq[Int]):Seq[Int]={
-      if (seq.size<2) return seq
-      val pivotPos=scala.util.Random.nextInt(seq.size)
-      val pivot=seq.apply(pivotPos)
+    def vectorQuickSort(seq : Seq[Int]) : Seq[Int] = {
+      if (seq.size < 2) return seq
+      val pivotPos = scala.util.Random.nextInt(seq.size)
+      val pivot = seq.apply(pivotPos)
       val (left, right) = seq.patch(pivotPos, Nil, 1).partition (_< pivot)
-      println(left,pivot,right)
+      println(left, pivot, right)
       (vectorQuickSort(left):+ pivot) ++ vectorQuickSort(right)
     }
 
-    def zelda : Image = triangle(30,30) fillColor Color.red above (triangle(30,30) fillColor Color.green beside triangle(30,30) fillColor Color.blue)
+    def zelda : Image = triangle(30,30) fillColor Color.rgb(255.uByte, 0.uByte, 0.uByte) above (triangle(30,30) fillColor Color.rgb(0.uByte, 255.uByte, 0.uByte) beside triangle(30,30) fillColor Color.rgb(0.uByte, 0.uByte, 255.uByte))
     def arch : Image = circle(100) fillColor Color.white above rectangle(10, 60) fillColor Color.white above rectangle(200, 70) fillColor Color.green
     def house : Image = triangle(100, 90) fillColor Color.brown above rectangle(100, 100) fillColor Color.red
   }
