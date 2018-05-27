@@ -6,14 +6,18 @@ import doodle.backend.StandardInterpreter._
 
 package doggabyte {
   object Xlnt {
-    val zelda = triangle(30,30) fillColor Color.red above (triangle(30,30) fillColor Color.green beside triangle(30,30) fillColor Color.blue)
-    val arch = circle(100) fillColor Color.white above rectangle(10, 60) fillColor Color.white above rectangle(200, 70) fillColor Color.green
-    val house = triangle(100, 90) fillColor Color.brown above rectangle(100, 100) fillColor Color.red
 
     def main(args: Array[String]): Unit = {
-      zelda.draw
-      arch.draw
-      house.draw
+      chessBoard.draw
+    }
+
+    def chessBoard : Image = {
+      val blackSquare = square(20) fillColor Color.black
+      val whiteSquare = square(20) fillColor Color.white
+      val twoSquare = (whiteSquare above blackSquare) beside (blackSquare above whiteSquare)
+      val fourSquare = (twoSquare above twoSquare) beside (twoSquare above twoSquare)
+      val eightSquare = (fourSquare above fourSquare) beside (fourSquare above fourSquare)
+      eightSquare
     }
 
     def cross(count: Int): Image = {
@@ -53,11 +57,15 @@ package doggabyte {
 
     def vectorQuickSort(seq:Seq[Int]):Seq[Int]={
       if (seq.size<2) return seq
-      val pivotPos=scala.util.Random.nextInt(seq.size) 
+      val pivotPos=scala.util.Random.nextInt(seq.size)
       val pivot=seq.apply(pivotPos)
-      val (left,right)=seq.patch(pivotPos,Nil,1).partition(_< pivot)
+      val (left, right) = seq.patch(pivotPos, Nil, 1).partition (_< pivot)
       println(left,pivot,right)
       (vectorQuickSort(left):+ pivot) ++ vectorQuickSort(right)
     }
+
+    def zelda : Image = triangle(30,30) fillColor Color.red above (triangle(30,30) fillColor Color.green beside triangle(30,30) fillColor Color.blue)
+    def arch : Image = circle(100) fillColor Color.white above rectangle(10, 60) fillColor Color.white above rectangle(200, 70) fillColor Color.green
+    def house : Image = triangle(100, 90) fillColor Color.brown above rectangle(100, 100) fillColor Color.red
   }
 }
