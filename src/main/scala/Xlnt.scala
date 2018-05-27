@@ -3,23 +3,49 @@ import doodle.core.Image._
 import doodle.core.Point._
 import doodle.core.PathElement._
 import doodle.syntax._
-import doodle.jvm.Java2DFrame._
-import doodle.backend.StandardInterpreter._
-
 
 package doggabyte {
 
   object Xlnt {
 
     def main(args: Array[String]): Unit = {
-      println(ascending(8))
+      println(ascending(666))
+      println(fill(5, Image))
+      println(List(4, 9, 16).map(_*2))
+      println(double(List(4, 9, 16)))
+      //println(Nil.fold(0)(_*_))
+      //println(List(1, 2, 3).fold(0)(_*_))
+      //println(product(List(1, 2, 3)))
+    }
+
+    /*
+    def product(list : List[Int]) : List[Int] = {
+      list match {
+        case Nil => Nil
+        case head :: tail => head * product(tail)
+      }
+    }
+    */
+
+    def double(list : List[Int]) : List[Int] = {
+      list match {
+        case Nil => Nil
+        case head :: tail => (head*2) :: double(tail)
+      }
+    }
+
+    def fill[T](n : Int, t : T) : List[T] = {
+      n match {
+        case 0 => Nil
+        case n => t :: fill(n-1, t)
+      }
     }
 
     def ascending(n : Int) : List[Int] = {
       def irritating(i: Int, i1: Int): List[Int] = {
         i match {
           case 0 => Nil
-          case n => i1 :: irritating(i-1, i1+1)
+          case i => i1 :: irritating(i-1, i1+1)
         }
       }
       irritating(n, 1)
