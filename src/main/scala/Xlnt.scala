@@ -33,5 +33,31 @@ package doggabyte {
           unit above (unit beside unit)
       }
     }
+
+    def listSort(li:List[Int]):List[Int]={
+      if (li.size<2) return li
+      val pivot=li.head
+      val (left,right)=li.partition(_< pivot)
+      println(left,pivot,right.tail)
+      listSort(left) ::: pivot :: listSort(right.tail)
+    }
+
+    def vectorSort(seq:Seq[Int]):Seq[Int]={
+      if (seq.size<2) return seq
+      val pivotPos=seq.size/2
+      val pivot=seq.apply(pivotPos)
+      val (left,right)=seq.patch(pivotPos,Nil,1).partition(_< pivot)
+      println(left,pivot,right)
+      (vectorSort(left):+ pivot) ++ vectorSort(right)
+    }
+
+    def vectorQuickSort(seq:Seq[Int]):Seq[Int]={
+      if (seq.size<2) return seq
+      val pivotPos=scala.util.Random.nextInt(seq.size) 
+      val pivot=seq.apply(pivotPos)
+      val (left,right)=seq.patch(pivotPos,Nil,1).partition(_< pivot)
+      println(left,pivot,right)
+      (vectorQuickSort(left):+ pivot) ++ vectorQuickSort(right)
+    }
   }
 }
