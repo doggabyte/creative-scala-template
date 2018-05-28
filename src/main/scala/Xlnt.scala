@@ -1,31 +1,45 @@
-import doodle.core._
-import doodle.core.Image._
-import doodle.core.Point._
-import doodle.core.PathElement._
-import doodle.syntax._
-
 package doggabyte {
+
+  import doodle.core._
+  import doodle.core.Image._
+  import doodle.core.Point._
+  import doodle.core.PathElement._
+  import doodle.syntax._
+  import doodle.jvm.Java2DFrame._
+  import doodle.backend.StandardInterpreter._
 
   object Xlnt {
 
     def main(args: Array[String]): Unit = {
+
+      /*
       println(ascending(666))
       println(fill(5, Image))
       println(List(4, 9, 16).map(_*2))
       println(double(List(4, 9, 16)))
       //println(Nil.fold(0)(_*_))
-      //println(List(1, 2, 3).fold(0)(_*_))
-      //println(product(List(1, 2, 3)))
+      println(List(1, 2, 3, 4).reduceLeft(_*_))
+      println(product(List(1, 2, 3, 4, 5)))
+      println(contains(List(1,2,3), 3))
+      println(contains(List("one", "two", "three"), "four"))
+      */
+      cross(1).draw
+
     }
 
-    /*
-    def product(list : List[Int]) : List[Int] = {
+    def contains[T](list : List[T], element: T) : Boolean = {
       list match {
-        case Nil => Nil
-        case head :: tail => head * product(tail)
+        case Nil => false
+        case head :: tail => (head == element) || contains(tail, element)
       }
     }
-    */
+
+    def product(list : List[Int]) : Int = {
+      list match {
+        case Nil => 1
+        case list => list.reduceLeft(_*_)
+      }
+    }
 
     def double(list : List[Int]) : List[Int] = {
       list match {
