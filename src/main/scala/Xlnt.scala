@@ -23,7 +23,7 @@ package doggabyte {
       println(contains(List(1,2,3), 3))
       println(contains(List("one", "two", "three"), "four"))
       */
-      cross(1).draw
+      house.draw
 
     }
 
@@ -111,8 +111,8 @@ package doggabyte {
       count match {
         case 0 => triangle above (triangle beside triangle)
         case n =>
-          val unit = evilTriangle(n-1)
-          unit above (unit beside unit)
+          val triforce = evilTriangle(n-1)
+          triforce above (triforce beside triforce)
       }
     }
 
